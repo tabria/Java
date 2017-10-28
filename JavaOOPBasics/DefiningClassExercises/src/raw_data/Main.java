@@ -38,8 +38,7 @@ public class Main {
     private static Predicate<Car> filterByTirePressure() {
         return  y -> {
             for (int i = 0; i <3 ; i++) {
-                double pressure = y.getTirePressure(i);
-                if (pressure < 1){
+                if (y.getTirePressure(i) < 1){
                     return true;
                 }
             }
@@ -52,8 +51,8 @@ public class Main {
         for (int i = 0; i <cycles ; i++) {
             String[] carInfo = reader.readLine().split("\\s+");
 
-            Engine carEngine = createEngine(carInfo);
-            Cargo carCargo = createCargo(carInfo);
+            Engine carEngine = new Engine(Integer.valueOf(carInfo[1]), Integer.valueOf(carInfo[2]));
+            Cargo carCargo = new Cargo(Integer.valueOf(carInfo[3]), carInfo[4]);
             List<Tire> carTires = new ArrayList<>();
             fillTireInfo(carTires, carInfo);
 
@@ -71,17 +70,4 @@ public class Main {
             carTires.add(carTire);
         }
     }
-
-    private static Cargo createCargo(String[] carInfo) {
-        int cargoWeight = Integer.valueOf(carInfo[3]);
-        String cargoType = carInfo[4];
-        return new Cargo(cargoWeight, cargoType);
-    }
-
-    private static Engine createEngine(String[] carInfo) {
-        int engineSpeed = Integer.valueOf(carInfo[1]);
-        int enginePower = Integer.valueOf(carInfo[2]);
-        return new Engine(engineSpeed, enginePower);
-    }
-
 }
